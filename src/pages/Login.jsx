@@ -30,12 +30,6 @@ export default class Login extends React.Component {
     });
   }
 
-  handleLoginValidation = () => {
-    if (loaded) {
-      return <Redirect to="/search" />;
-    }
-  }
-
   handleSubmit = (event) => {
     event.preventDefault();
     const { inputName } = this.state;
