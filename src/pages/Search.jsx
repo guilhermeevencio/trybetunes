@@ -39,6 +39,8 @@ export default class Search extends React.Component {
     this.setState({ searchResult: artistResult, loaded: true, searchInput: '' });
   }
 
+  renderingAlbums = () => (<p>Albuns</p>);
+
   render() {
     const {
       isDisabled,
@@ -71,9 +73,11 @@ export default class Search extends React.Component {
           )}
         {loaded
           ? (
-            <p>
-              {`Resultados de busca de: ${searchToShow}`}
-            </p>
+            (
+              <section>
+                <p>{`Resultados de busca de: ${searchToShow}`}</p>
+                <div>{this.renderingAlbums()}</div>
+              </section>)
           )
           : null}
 
