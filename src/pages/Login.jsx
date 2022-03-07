@@ -34,8 +34,8 @@ export default class Login extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const { inputName } = this.state;
-    this.setState({ showForm: false });
-    createUser({ name: inputName }).then(() => this.setState({ loaded: true }));
+    createUser({ name: inputName });
+    this.setState({ loaded: true, showForm: false });
   }
 
   render() {

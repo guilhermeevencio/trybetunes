@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Header from '../components/Header';
-import Loading from '../components/Loading';
-import NotFound from './NotFound';
 
 export default class Search extends React.Component {
   constructor() {
@@ -102,5 +100,3 @@ export default class Search extends React.Component {
     );
   }
 }
-
-// Continuar na parte de tratar os dados da api, depois encontrar uma maneira de exivir o componente so apos a pesquisa, juntamente com o carregando... provavelmente a gente usara o loaded pra poder carregar a função que vai retornar o paragrafo com o nome do artista e tambem retornar todos os artistas, que provavelmente serao links, onde utilizaremos os id deles pra redirecionar.
