@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
+import NotFound from './NotFound';
 
 export default class Search extends React.Component {
   constructor() {
@@ -9,7 +11,6 @@ export default class Search extends React.Component {
     this.state = {
       isDisabled: true,
       searchInput: '',
-      showForm: true,
       searchResult: [],
       loaded: false,
     };
@@ -29,57 +30,73 @@ export default class Search extends React.Component {
         searchInput: value,
       };
     });
+    this.renderingAlbums();
   }
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    const { searchInput, searchResult } = this.state;
-    this.setState({ showForm: false, searchToShow: searchInput });
+    const { searchInput } = this.state;
+    this.setState({ searchToShow: searchInput });
     const artistResult = await searchAlbumsAPI(searchInput);
     this.setState({ searchResult: artistResult, loaded: true, searchInput: '' });
   }
 
-  renderingAlbums = () => (<p>Albuns</p>);
+  renderingAlbums = () => {
+    const { searchResult } = this.state;
+    if (searchResult.length === 0) {
+      return (<h3>Nenhum álbum foi encontrado</h3>);
+    }
+    const mappingAlbuns = searchResult.map(
+      ({ collectionId, collectionName, artworkUrl100 }) => (
+        <Link
+          to={ `/album/${collectionId}` }
+          key={ collectionId }
+          data-testid={ `link-to-album-${collectionId}` }
+        >
+          <img src={ artworkUrl100 } alt="collectionName" />
+          <p>{collectionName}</p>
+        </Link>
+      ),
+    );
+    return mappingAlbuns;
+  };
 
   render() {
     const {
       isDisabled,
       searchInput,
-      showForm,
-      searchResult,
+      searchToShow,
       loaded,
-      searchToShow } = this.state;
+    } = this.state;
     return (
       <div data-testid="page-search">
         <Header />
-        {showForm
-          && (
-            <form>
-              <input
-                type="text"
-                data-testid="search-artist-input"
-                onChange={ this.handleChanges }
-                value={ searchInput }
-              />
-              <button
-                type="submit"
-                data-testid="search-artist-button"
-                onClick={ this.handleSubmit }
-                disabled={ isDisabled }
-              >
-                Entrar
-              </button>
-            </form>
-          )}
+
+        <form>
+          <input
+            type="text"
+            data-testid="search-artist-input"
+            onChange={ this.handleChanges }
+            value={ searchInput }
+          />
+          <button
+            type="submit"
+            data-testid="search-artist-button"
+            onClick={ this.handleSubmit }
+            disabled={ isDisabled }
+          >
+            Buscar
+          </button>
+        </form>
+
         {loaded
-          ? (
+          && (
             (
               <section>
-                <p>{`Resultados de busca de: ${searchToShow}`}</p>
-                <div>{this.renderingAlbums()}</div>
+                <p>{`Resultado de álbuns de: ${searchToShow}`}</p>
+                {this.renderingAlbums()}
               </section>)
-          )
-          : null}
+          )}
 
       </div>
     );
