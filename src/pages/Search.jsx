@@ -10,7 +10,8 @@ export default class Search extends React.Component {
       isDisabled: true,
       searchInput: '',
       showForm: true,
-      searchResult: '',
+      searchResult: [],
+      loaded: false,
     };
   }
 
@@ -25,7 +26,6 @@ export default class Search extends React.Component {
       }
       return {
         isDisabled: disabled,
-        loaded: false,
         searchInput: value,
       };
     });
@@ -33,19 +33,25 @@ export default class Search extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    const { searchInput } = this.state;
-    this.setState({ showForm: false });
+    const { searchInput, searchResult } = this.state;
+    this.setState({ showForm: false, searchToShow: searchInput });
     const artistResult = await searchAlbumsAPI(searchInput);
-    this.setState({ searchResult: artistResult, searchInput: '' });
+    this.setState({ searchResult: artistResult, loaded: true, searchInput: '' });
   }
 
   render() {
-    const { isDisabled, searchInput, showForm } = this.state;
+    const {
+      isDisabled,
+      searchInput,
+      showForm,
+      searchResult,
+      loaded,
+      searchToShow } = this.state;
     return (
       <div data-testid="page-search">
         <Header />
         {showForm
-          ? (
+          && (
             <form>
               <input
                 type="text"
@@ -62,9 +68,18 @@ export default class Search extends React.Component {
                 Entrar
               </button>
             </form>
+          )}
+        {loaded
+          ? (
+            <p>
+              {`Resultados de busca de: ${searchToShow}`}
+            </p>
           )
-          : <Loading />}
+          : null}
+
       </div>
     );
   }
 }
+
+// Continuar na parte de tratar os dados da api, depois encontrar uma maneira de exivir o componente so apos a pesquisa, juntamente com o carregando... provavelmente a gente usara o loaded pra poder carregar a função que vai retornar o paragrafo com o nome do artista e tambem retornar todos os artistas, que provavelmente serao links, onde utilizaremos os id deles pra redirecionar.
