@@ -10,6 +10,7 @@ export default class Login extends React.Component {
     this.state = {
       isDisabled: true,
       showForm: true,
+      inputName: '',
     };
   }
 
@@ -38,7 +39,7 @@ export default class Login extends React.Component {
   }
 
   render() {
-    const { isDisabled, loaded, showForm } = this.state;
+    const { isDisabled, loaded, showForm, inputName } = this.state;
     return (
       <div data-testid="page-login">
         {showForm
@@ -48,6 +49,7 @@ export default class Login extends React.Component {
                 type="text"
                 data-testid="login-name-input"
                 onChange={ this.handleChanges }
+                value={ inputName }
               />
               <button
                 type="submit"

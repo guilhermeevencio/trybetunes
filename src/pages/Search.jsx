@@ -1,11 +1,16 @@
 import React from 'react';
+import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 
 export default class Search extends React.Component {
   constructor() {
     super();
     this.state = {
       isDisabled: true,
+      searchInput: '',
+      showForm: true,
+      searchResult: '',
     };
   }
 
@@ -19,37 +24,46 @@ export default class Search extends React.Component {
         disabled = false;
       }
       return {
-        inputName: value,
         isDisabled: disabled,
         loaded: false,
+        searchInput: value,
       };
     });
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
+    const { searchInput } = this.state;
+    this.setState({ showForm: false });
+    const artistResult = await searchAlbumsAPI(searchInput);
+    this.setState({ searchResult: artistResult, searchInput: '' });
   }
 
   render() {
-    const { isDisabled } = this.state;
+    const { isDisabled, searchInput, showForm } = this.state;
     return (
       <div data-testid="page-search">
         <Header />
-        <form>
-          <input
-            type="text"
-            data-testid="search-artist-input"
-            onChange={ this.handleChanges }
-          />
-          <button
-            type="submit"
-            data-testid="search-artist-button"
-            onClick={ this.handleSubmit }
-            disabled={ isDisabled }
-          >
-            Entrar
-          </button>
-        </form>
+        {showForm
+          ? (
+            <form>
+              <input
+                type="text"
+                data-testid="search-artist-input"
+                onChange={ this.handleChanges }
+                value={ searchInput }
+              />
+              <button
+                type="submit"
+                data-testid="search-artist-button"
+                onClick={ this.handleSubmit }
+                disabled={ isDisabled }
+              >
+                Entrar
+              </button>
+            </form>
+          )
+          : <Loading />}
       </div>
     );
   }
