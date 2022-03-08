@@ -20,12 +20,12 @@ export default class MusicCard extends React.Component {
   handleCheck = async ({ target: { checked } }) => {
     const { trackId } = this.props;
     this.setState({ loading: true });
-    const musics = await getMusics(trackId);
+    const music = await getMusics(trackId);
     if (checked) {
-      await addSong(...musics);
+      await addSong(...music);
       this.setState({ loading: false, checkedState: true });
     } else {
-      await removeSong(...musics);
+      await removeSong(...music);
       this.setState({ loading: false, checkedState: false });
     }
   }
