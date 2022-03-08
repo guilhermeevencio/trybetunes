@@ -1,26 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class MusicCard extends React.Component {
   componentDidMount() {
-    this.mappingMusics();
-  }
-
-  mappingMusics = async () => {
-    const { musics } = this.props;
-    console.log(this.props);
-    const musicsFetched = await musics;
-    // const renderingMusics = musics.map(({ trackName }) => (
-    //   <p key={ trackName }>{ trackName }</p>
-    // ));
-    // return renderingMusics;
   }
 
   render() {
+    const { musicName, url } = this.props;
     return (
       <div>
-        {/* { this.mappingMusics() } */}
-        oi
+        {musicName}
+        <audio data-testid="audio-component" src={ url } controls>
+          <track kind="captions" />
+          O seu navegador não suporta o elemento
+          <code>audio</code>
+          .
+        </audio>
       </div>
     );
   }
 }
+
+MusicCard.propTypes = {
+  musicName: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+};

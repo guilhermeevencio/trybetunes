@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
-import Loading from '../components/Loading';
 // import Loading from '../components/Loading';
 
 export default class Album extends React.Component {
@@ -12,8 +11,8 @@ export default class Album extends React.Component {
     this.state = {
       musicArtist: '',
       musicAlbum: '',
-      musicsObj: [],
-      isLoaded: false,
+      musicsArr: [],
+      // isLoaded: false,
     };
   }
 
@@ -24,19 +23,44 @@ export default class Album extends React.Component {
   gettingId = async () => {
     const { match: { params: { id } } } = this.props;
     const musics = await getMusics(id);
-    const { artistName, collectionName } = musics.shift();
-    const musicName = musics.map(({ trackName }) => trackName);
-    console.log(artistName, collectionName);
+    // console.log(musics);
+    const { artistName, collectionName } = musics[0];
+    // console.log(artistName, collectionName);
+    // const musicInfos = musics.map(({ trackName, previewUrl }, i) => {
+    //   if (i > 0) {
+    //     return ({name: trackName, previewUrl})
+    //   }
+    // }
     this.setState({
       musicArtist: artistName,
       musicAlbum: collectionName,
-      musicsObj: musicName,
-      isLoaded: true
+      musicsArr: musics,
+      // isLoaded: true,
     });
   }
 
   render() {
-    return <>teste</>;
+    const { musicArtist, musicAlbum, musicsArr } = this.state;
+    return (
+      <div data-testid="page-album">
+        <Header />
+        <h2
+          data-testid="artist-name"
+        >
+          {musicArtist}
+        </h2>
+        <h3
+          data-testid="album-name"
+        >
+          {musicAlbum}
+        </h3>
+        {musicsArr.map(
+          ({ trackName, previewUrl, trackId }, i) => (
+            i > 0
+            && <MusicCard key={ trackId } musicName={ trackName } url={ previewUrl } />),
+        )}
+      </div>
+    );
   }
 }
 
