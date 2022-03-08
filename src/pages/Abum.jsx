@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
-// import Loading from '../components/Loading';
+import Loading from '../components/Loading';
 
 export default class Album extends React.Component {
   constructor() {
@@ -12,7 +12,7 @@ export default class Album extends React.Component {
       musicArtist: '',
       musicAlbum: '',
       musicsArr: [],
-      // isLoaded: false,
+      loading: false,
     };
   }
 
@@ -22,44 +22,49 @@ export default class Album extends React.Component {
 
   gettingId = async () => {
     const { match: { params: { id } } } = this.props;
+    this.setState({ loading: true });
     const musics = await getMusics(id);
-    // console.log(musics);
     const { artistName, collectionName } = musics[0];
-    // console.log(artistName, collectionName);
-    // const musicInfos = musics.map(({ trackName, previewUrl }, i) => {
-    //   if (i > 0) {
-    //     return ({name: trackName, previewUrl})
-    //   }
-    // }
     this.setState({
       musicArtist: artistName,
       musicAlbum: collectionName,
       musicsArr: musics,
-      // isLoaded: true,
+      loading: false,
     });
   }
 
   render() {
-    const { musicArtist, musicAlbum, musicsArr } = this.state;
+    const { musicArtist, musicAlbum, musicsArr, loading } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
-        <h2
-          data-testid="artist-name"
-        >
-          {musicArtist}
-        </h2>
-        <h3
-          data-testid="album-name"
-        >
-          {musicAlbum}
-        </h3>
-        {musicsArr.map(
-          ({ trackName, previewUrl, trackId }, i) => (
-            i > 0
-            && <MusicCard key={ trackId } musicName={ trackName } url={ previewUrl } />),
-        )}
+        {loading
+          ? <Loading />
+          : (
+            <>
+              <h2
+                data-testid="artist-name"
+              >
+                {musicArtist}
+              </h2>
+              <h3
+                data-testid="album-name"
+              >
+                {musicAlbum}
+              </h3>
+              {musicsArr.map(
+                ({ trackName, previewUrl, trackId }, i) => (
+                  i > 0
+                  && <MusicCard
+                    key={ trackId }
+                    musicName={ trackName }
+                    url={ previewUrl }
+                  />),
+              )}
+            </>
+          )}
       </div>
+
     );
   }
 }
