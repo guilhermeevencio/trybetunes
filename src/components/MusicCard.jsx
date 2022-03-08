@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { addSong, removeSong } from '../services/favoriteSongsAPI';
+import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import getMusics from '../services/musicsAPI';
 import Loading from './Loading';
 
@@ -11,6 +11,10 @@ export default class MusicCard extends React.Component {
       loading: false,
       checkedState: false,
     };
+  }
+
+  componentDidMount() {
+    this.savedMusics();
   }
 
   handleCheck = async ({ target: { checked } }) => {
@@ -26,13 +30,22 @@ export default class MusicCard extends React.Component {
     }
   }
 
+  savedMusics = async () => {
+    const { trackId } = this.props;
+    const songs = await getFavoriteSongs();
+    const mappingMusicIds = songs.map((song) => song.trackId);
+    if (mappingMusicIds.includes(trackId)) {
+      this.setState({ checkedState: true });
+    }
+  }
+
   render() {
     const { musicName, url, trackId } = this.props;
     const { loading, checkedState } = this.state;
     return loading
       ? <Loading />
       : (
-        <div id="music-card">
+        <div id={ trackId }>
           {musicName}
           <audio data-testid="audio-component" src={ url } controls>
             <track kind="captions" />
