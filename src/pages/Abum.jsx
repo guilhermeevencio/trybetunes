@@ -60,6 +60,7 @@ export default class Album extends React.Component {
                     musicName={ trackName }
                     url={ previewUrl }
                     trackId={ trackId }
+                    removeFunc={ () => {} }
                   />),
               )}
             </>

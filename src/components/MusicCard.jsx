@@ -18,14 +18,17 @@ export default class MusicCard extends React.Component {
   }
 
   handleCheck = async ({ target: { checked } }) => {
-    const { trackId } = this.props;
+    const { trackId, removeFunc } = this.props;
+    console.log(this.props);
     this.setState({ loading: true });
     const music = await getMusics(trackId);
     if (checked) {
       await addSong(...music);
       this.setState({ loading: false, checkedState: true });
     } else {
-      await removeSong(...music);
+      this.setState({ loading: true });
+      await removeSong(trackId);
+      removeFunc(trackId);
       this.setState({ loading: false, checkedState: false });
     }
   }
@@ -72,5 +75,6 @@ export default class MusicCard extends React.Component {
 MusicCard.propTypes = {
   musicName: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  trackId: PropTypes.number.isRequired,
+  trackId: PropTypes.string.isRequired,
+  removeFunc: PropTypes.func.isRequired,
 };
