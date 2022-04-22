@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import getMusics from '../services/musicsAPI';
 import Loading from './Loading';
+import '../Styles/MusicCard.css';
 
 export default class MusicCard extends React.Component {
   constructor() {
@@ -48,15 +49,15 @@ export default class MusicCard extends React.Component {
     return loading
       ? <Loading />
       : (
-        <div id={ trackId }>
-          {musicName}
+        <div id={ trackId } className="music-card">
+          <h3>{musicName}</h3>
           <audio data-testid="audio-component" src={ url } controls>
             <track kind="captions" />
             O seu navegador não suporta o elemento
             <code>audio</code>
             .
           </audio>
-          <label htmlFor="favorite">
+          <label htmlFor="favorite" className="favorite">
             Favorita
             <input
               type="checkbox"

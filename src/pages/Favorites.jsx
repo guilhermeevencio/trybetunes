@@ -3,6 +3,8 @@ import Header from '../components/Header';
 import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 import MusicCard from '../components/MusicCard';
 import Loading from '../components/Loading';
+import '../Styles/Favorites.css';
+import '../Styles/MusicCard.css';
 
 export default class Favorites extends React.Component {
   constructor() {
@@ -43,7 +45,7 @@ export default class Favorites extends React.Component {
             <Loading />
           )
           : (
-            <div>
+            <div className="musics-list">
               {musicsArr.map(
                 ({ trackName, previewUrl, trackId }) => (
                   <MusicCard

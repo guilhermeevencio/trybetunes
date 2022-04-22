@@ -1,0 +1,69 @@
+[ data-testid = 'page-search' ] {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.search-form-container {
+  background-color: rgb(0, 255, 153);
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.217);
+  margin-top: 4vh;
+  padding: 24px 0;
+  width: 30vw;
+}
+
+[ data-testid = 'search-artist-input' ] {
+  border: none;
+  border-radius: 4px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.193);
+  font-size: 14pt;
+  height: 6vh;
+  margin: 12px;
+  padding: 16px;
+  text-align: center;
+  width: 24vw;
+}
+
+[ data-testid = 'search-artist-button' ] {
+  background-color: rgb(41, 65, 171);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  cursor: pointer;
+  font-size: 20pt;
+  margin: 16px;
+  padding: 8px 28px;
+}
+
+.search-results {
+  align-items: center;
+  color: white;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-evenly;
+  margin-top: 24px;
+  padding: 16px 20px;
+}
+
+.dom-link {
+  background-color: #0094e9;
+  background-image: linear-gradient(160deg, #004c78 0%, #007668 100%);
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.123);
+  color: white;
+  margin: 8px;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.album-image {
+  text-align: center;
+}
+
+.musics-card {
+  display: flex;
+  flex-wrap: wrap;
+}

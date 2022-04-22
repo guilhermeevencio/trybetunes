@@ -30,29 +30,36 @@ export default class extends React.Component {
         { loading
           ? <Loading />
           : (
-            <>
-              <h3 data-testid="header-user-name">
-                {userName}
-              </h3>
-              <Link
-                to="/search"
-                data-testid="link-to-search"
-              >
-                Pesquisa
-              </Link>
-              <Link
-                to="/favorites"
-                data-testid="link-to-favorites"
-              >
-                Favoritas
-              </Link>
-              <Link
-                to="/profile"
-                data-testid="link-to-profile"
-              >
-                Perfil
-              </Link>
-            </>)}
+            <div className="header">
+              <h3 className="heading-title">TrybeTunes</h3>
+              <div className="nav-container">
+                <div className="nav-items">
+                  <Link
+                    to="/search"
+                    data-testid="link-to-search"
+                  >
+                    Search
+                  </Link>
+                  <Link
+                    to="/favorites"
+                    data-testid="link-to-favorites"
+                  >
+                    Favorites
+                  </Link>
+                </div>
+                <div className="profile-info">
+                  <h3 data-testid="header-user-name">
+                    {userName}
+                  </h3>
+                  <Link
+                    to="/profile"
+                    data-testid="link-to-profile"
+                  >
+                    Profile
+                  </Link>
+                </div>
+              </div>
+            </div>)}
       </header>
     );
   }

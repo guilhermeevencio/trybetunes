@@ -1,0 +1,28 @@
+.music-card {
+  background-color: #0094e9;
+  background-image: linear-gradient(160deg, #004c78 0%, #007668 100%);
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.123);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+  padding: 28px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.music-card h3 {
+  margin: 4px;
+}
+
+.favorite {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.favorite input {
+  margin: 0 8px;
+}

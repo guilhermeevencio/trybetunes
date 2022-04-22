@@ -1,0 +1,8 @@
+.musics-list {
+  align-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+  margin: 8px 28px;
+}
