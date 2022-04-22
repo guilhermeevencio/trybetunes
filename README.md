@@ -5,5 +5,5 @@
 <p>Foram utilizados nesse projeto a biblioteca React, utilizando as suas classes e o React Router Dom para gerenciamento de Rotas.</p>
 
 <p align="center">
-  ![login-page](./gifs/login-ppage-tryvetunes.gif "Logo Title Text 1")
+  <img width="400" src="./gifs/login-ppage-tryvetunes.gif" "Loign Page")
 </p>
