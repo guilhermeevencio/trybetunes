@@ -4,6 +4,4 @@
 
 <p>Foram utilizados nesse projeto a biblioteca React, utilizando as suas classes e o React Router Dom para gerenciamento de Rotas.</p>
 
-<p align="center">
-  <img width="400" src="trybetunes/gifs/login-page-trybetunes.gif" "Login Page")
-</p>
+![](https://github.com/guilhermeevencio/trybetunes/blob/main/gifs/login-page-trybetunes.gif)
