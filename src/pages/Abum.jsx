@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
 import Loading from '../components/Loading';
+import '../Styles/Album.css';
 
 export default class Album extends React.Component {
   constructor() {
@@ -41,7 +42,7 @@ export default class Album extends React.Component {
         {loading
           ? <Loading />
           : (
-            <>
+            <div className="musics-container">
               <h2
                 data-testid="artist-name"
               >
@@ -56,6 +57,7 @@ export default class Album extends React.Component {
                 ({ trackName, previewUrl, trackId }, i) => (
                   i > 0
                   && <MusicCard
+                    className="music-card"
                     key={ trackId }
                     musicName={ trackName }
                     url={ previewUrl }
@@ -63,7 +65,7 @@ export default class Album extends React.Component {
                     removeFunc={ () => {} }
                   />),
               )}
-            </>
+            </div>
           )}
       </div>
 

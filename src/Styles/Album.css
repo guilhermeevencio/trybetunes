@@ -1,0 +1,20 @@
+[ data-testid = 'page-album' ] {
+  color: white;
+}
+
+.musics-container {
+  align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  margin: 24px;
+}
+
+[ data-testid = 'artist-name' ] {
+  margin: 8px;
+}
+
+[ data-testid = 'album-name' ] {
+  margin: 8px;
+}
+

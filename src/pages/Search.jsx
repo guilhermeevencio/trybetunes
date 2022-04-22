@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Header from '../components/Header';
+import '../Styles/Search.css';
 
 export default class Search extends React.Component {
   constructor() {
@@ -47,11 +48,16 @@ export default class Search extends React.Component {
     const mappingAlbuns = searchResult.map(
       ({ collectionId, collectionName, artworkUrl100 }) => (
         <Link
+          className="dom-link"
           to={ `/album/${collectionId}` }
           key={ collectionId }
           data-testid={ `link-to-album-${collectionId}` }
         >
-          <img src={ artworkUrl100 } alt="collectionName" />
+          <img
+            src={ artworkUrl100 }
+            alt="collectionName"
+            className="album-image"
+          />
           <p>{collectionName}</p>
         </Link>
       ),
@@ -69,30 +75,34 @@ export default class Search extends React.Component {
     return (
       <div data-testid="page-search">
         <Header />
-
-        <form>
-          <input
-            type="text"
-            data-testid="search-artist-input"
-            onChange={ this.handleChanges }
-            value={ searchInput }
-          />
-          <button
-            type="submit"
-            data-testid="search-artist-button"
-            onClick={ this.handleSubmit }
-            disabled={ isDisabled }
-          >
-            Buscar
-          </button>
-        </form>
+        <div className="search-form-container">
+          <form>
+            <input
+              type="text"
+              data-testid="search-artist-input"
+              onChange={ this.handleChanges }
+              value={ searchInput }
+              placeholder="Write the artist's album name here"
+            />
+            <button
+              type="submit"
+              data-testid="search-artist-button"
+              onClick={ this.handleSubmit }
+              disabled={ isDisabled }
+            >
+              Search
+            </button>
+          </form>
+        </div>
 
         {loaded
           && (
             (
-              <section>
+              <section className="search-results">
                 <p>{`Resultado de álbuns de: ${searchToShow}`}</p>
-                {this.renderingAlbums()}
+                <div className="musics-card">
+                  {this.renderingAlbums()}
+                </div>
               </section>)
           )}
 
