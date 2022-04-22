@@ -2,7 +2,7 @@
 
 ## Descrição do projeto
 
-<p>Este repositório contém uma aplicação que utiliza a API do potify para procurar músicas de acordo ocm o Álbum de artistas, sendo possível executar um preview da música e também criar uma lista de favoritos.</p>
+<p>Este repositório contém uma aplicação que utiliza a API do Spotify para procurar músicas de acordo ocm o Álbum de artistas, sendo possível executar um preview da música e também criar uma lista de favoritos.</p>
 
 ## Tecnologias Utilizadas
  
